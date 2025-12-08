@@ -1,18 +1,18 @@
 # Hybrid-Analyzer
 
-🔬 **AI-Powered Text Analysis Platform**
+ **AI-Powered Text Analysis Platform**
 
 Hybrid-Analyzer is an industrial-grade fullstack application that orchestrates Hugging Face Zero-Shot Classification and Google Gemini API to provide automated article analysis with categorization, summarization, and tone detection.
 
 ## Features
 
-- 🤖 **Dual AI Integration**: Combines Hugging Face BART for classification with Gemini for intelligent summarization
-- 🔐 **Secure Authentication**: JWT-based authentication with bcrypt password hashing
-- 📊 **Comprehensive Analysis**: Category prediction, confidence scoring, summary generation, and tone detection
-- 🗄️ **PostgreSQL Database**: Persistent storage for users and analysis history
-- 🐳 **Docker Ready**: One-command deployment with Docker Compose
-- ✅ **Fully Tested**: Comprehensive unit and integration tests with mocked services
-- 🎨 **Modern UI**: Responsive React frontend with dark theme
+-  **Dual AI Integration**: Combines Hugging Face BART for classification with Gemini for intelligent summarization
+-  **Secure Authentication**: JWT-based authentication with bcrypt password hashing
+-  **Comprehensive Analysis**: Category prediction, confidence scoring, summary generation, and tone detection
+-  **PostgreSQL Database**: Persistent storage for users and analysis history
+-  **Docker Ready**: One-command deployment with Docker Compose
+-  **Fully Tested**: Comprehensive unit and integration tests with mocked services
+-  **Modern UI**: Responsive React frontend with dark theme
 
 ## Architecture
 
@@ -216,12 +216,12 @@ Hybrid-Analyzer/
 
 ## Security Features
 
-- ✅ Bcrypt password hashing
-- ✅ JWT token authentication
-- ✅ Protected API endpoints
-- ✅ CORS configuration
-- ✅ SQL injection prevention (SQLAlchemy ORM)
-- ✅ Input validation (Pydantic)
+-  Bcrypt password hashing
+   JWT token authentication
+-  Protected API endpoints
+-  CORS configuration
+-  SQL injection prevention (SQLAlchemy ORM)
+-  Input validation (Pydantic)
 
 ## Error Handling
 
