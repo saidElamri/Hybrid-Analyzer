@@ -37,9 +37,17 @@ app = FastAPI(
     description="AI-powered text analysis using Hugging Face and Gemini",
     version="1.0.0",
     docs_url="/docs",
-    redoc_url="/redoc",
-    root_path="/api"
+    redoc_url="/redoc"
 )
+
+# Middleware to strip /api prefix for Vercel routing
+@app.middleware("http")
+async def strip_api_prefix(request: Request, call_next):
+    if request.url.path.startswith("/api"):
+        # Strip /api from the path
+        path = request.url.path[4:]
+        request.scope["path"] = path
+    return await call_next(request)
 
 # Configure CORS
 app.add_middleware(
@@ -85,18 +93,6 @@ async def health_check():
     return {
         "status": "healthy",
         "service": "Hybrid-Analyzer API"
-    }
-
-
-@app.api_route("/{path_name:path}", methods=["GET", "POST", "PUT", "DELETE"])
-async def catch_all(request: Request, path_name: str):
-    """Debug route to inspect 404s."""
-    return {
-        "status": "404 Not Found (Debug)",
-        "received_path": path_name,
-        "full_path": str(request.url),
-        "root_path": request.scope.get("root_path", ""),
-        "message": "Debug info to fix Vercel routing."
     }
 
 
