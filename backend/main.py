@@ -18,12 +18,16 @@ logger.add(
     format="<green>{time:YYYY-MM-DD HH:mm:ss}</green> | <level>{level: <8}</level> | <cyan>{name}</cyan>:<cyan>{function}</cyan> - <level>{message}</level>",
     level="INFO"
 )
-logger.add(
-    "logs/app.log",
-    rotation="500 MB",
-    retention="10 days",
-    level="DEBUG"
-)
+try:
+    logger.add(
+        "logs/app.log",
+        rotation="500 MB",
+        retention="10 days",
+        level="DEBUG"
+    )
+except OSError:
+    # Likely running in a read-only environment (e.g., Vercel)
+    logger.warning("File logging disabled: Read-only file system detected.")
 
 settings = get_settings()
 
