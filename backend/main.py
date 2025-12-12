@@ -2,7 +2,7 @@
 Main FastAPI application.
 Initializes app, configures middleware, and registers routes.
 """
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from loguru import logger
 import sys
