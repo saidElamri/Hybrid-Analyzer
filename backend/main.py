@@ -88,6 +88,18 @@ async def health_check():
     }
 
 
+@app.api_route("/{path_name:path}", methods=["GET", "POST", "PUT", "DELETE"])
+async def catch_all(request: Request, path_name: str):
+    """Debug route to inspect 404s."""
+    return {
+        "status": "404 Not Found (Debug)",
+        "received_path": path_name,
+        "full_path": str(request.url),
+        "root_path": request.scope.get("root_path", ""),
+        "message": "Debug info to fix Vercel routing."
+    }
+
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
