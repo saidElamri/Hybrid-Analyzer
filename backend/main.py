@@ -37,7 +37,8 @@ app = FastAPI(
     description="AI-powered text analysis using Hugging Face and Gemini",
     version="1.0.0",
     docs_url="/docs",
-    redoc_url="/redoc"
+    redoc_url="/redoc",
+    root_path="/api"
 )
 
 # Configure CORS
