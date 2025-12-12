@@ -55,8 +55,12 @@ async def startup_event():
     """Initialize database on startup."""
     logger.info("Starting Hybrid-Analyzer API")
     logger.info("Initializing database...")
-    init_db()
-    logger.info("Database initialized successfully")
+    try:
+        init_db()
+        logger.info("Database initialized successfully")
+    except Exception as e:
+        logger.error(f"Database initialization failed: {e}")
+        # We don't raise here so the app can still start and return health checks/logs
 
 
 @app.get("/")
