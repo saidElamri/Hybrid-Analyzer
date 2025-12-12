@@ -42,5 +42,17 @@ class Settings(BaseSettings):
 
 @lru_cache()
 def get_settings() -> Settings:
-    """Get cached settings instance."""
-    return Settings()
+    """Get cached settings instance with Vercel fixes."""
+    settings = Settings()
+    
+    # Vercel/Neon often provides POSTGRES_URL instead of DATABASE_URL
+    import os
+    if not settings.database_url or "localhost" in settings.database_url:
+        if os.getenv("POSTGRES_URL"):
+            settings.database_url = os.getenv("POSTGRES_URL")
+    
+    # SQLAlchemy requires 'postgresql://', but some providers give 'postgres://'
+    if settings.database_url and settings.database_url.startswith("postgres://"):
+        settings.database_url = settings.database_url.replace("postgres://", "postgresql://", 1)
+        
+    return settings
