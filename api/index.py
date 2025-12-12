@@ -4,14 +4,22 @@ import traceback
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 
-# Add the project root to sys.path so we can import 'backend'
-# Vercel root is usually /var/task
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# Add the project root AND backend directory to sys.path
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(current_dir)
+sys.path.append(parent_dir)
+sys.path.append(os.path.join(parent_dir, "backend"))
 
 app = None
 
 try:
-    from backend.main import app as application
+    # Try importing as a package first
+    try:
+        from backend.main import app as application
+    except ImportError:
+        # Fallback to direct import if backend is in path
+        from main import app as application
+    
     app = application
 except Exception:
     error_trace = traceback.format_exc()
