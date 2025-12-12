@@ -217,7 +217,7 @@ Hybrid-Analyzer/
 ## Security Features
 
 -  Bcrypt password hashing
-   JWT token authentication
+-  JWT token authentication
 -  Protected API endpoints
 -  CORS configuration
 -  SQL injection prevention (SQLAlchemy ORM)
