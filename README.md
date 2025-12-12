@@ -162,6 +162,33 @@ pytest tests/ -v --cov=. --cov-report=html
 - Analysis orchestration
 - Error handling
 
+## Deployment
+
+### Vercel Deployment
+
+This project is configured for Vercel Monorepo deployment (Frontend + Serverless Backend).
+
+1. **Database Requirements**
+   - Vercel cannot access your local PostgreSQL database.
+   - You must create a cloud Postgres database (e.g., [Vercel Postgres](https://vercel.com/docs/storage/vercel-postgres), Neon, or Supabase).
+   - Get the connection string (`postgresql://...`).
+
+2. **Setup Steps**
+   - Push this repository to GitHub.
+   - Import the project in Vercel.
+   - In **Project Settings > Environment Variables**, add the following:
+  
+     | Variable | Value |
+     |----------|-------|
+     | `DATABASE_URL` | Your cloud database connection string |
+     | `JWT_SECRET` | A strong random string |
+     | `HUGGINGFACE_API_TOKEN` | Your Hugging Face token |
+     | `GEMINI_API_KEY` | Your Gemini API key |
+     | `VITE_API_URL` | `/api` (for production) |
+
+3. **Deploy**
+   - Click **Deploy**. Vercel will build the frontend and set up the backend serverless functions at `/api/*`.
+
 ## Project Structure
 
 ```
