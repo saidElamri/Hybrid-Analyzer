@@ -1,10 +1,25 @@
+import traceback
+from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
+
+app = None
+
 try:
     from main import app as application
-except Exception as e:
-    # Catch startup errors (e.g., missing dependencies)
-    import traceback
-    traceback.print_exc()
-    raise e
-
-# Vercel looks for 'app' or 'application' or 'handler'
-app = application
+    app = application
+except Exception:
+    # Capture the full traceback
+    error_trace = traceback.format_exc()
+    
+    # Create a fallback app to show the error
+    app = FastAPI()
+    
+    @app.api_route("/{path_name:path}", methods=["GET", "POST", "PUT", "DELETE"])
+    async def catch_all(request: Request, path_name: str):
+        return JSONResponse(
+            status_code=500,
+            content={
+                "error": "Application failed to start",
+                "detail": error_trace.split("\n")
+            }
+        )
